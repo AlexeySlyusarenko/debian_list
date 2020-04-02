@@ -148,8 +148,11 @@ grep -R "Xresources" /etc/X11
 cat xterm/Xterm >> /home/alexey/.Xresources
 
 4.5. Настройка i3-lock
-
-
+- выполнить
+sudo mkdir /usr/share/i3lock/
+sudo cp i3lock/bg.png /usr/share/i3lock/
+- добавить файл i3lock/i3lock.conf в конец файла локальной конфигурации i3
+cat i3lock/i3lock.conf ~/.config/i3/config
 
 4.6 Настройка i3-bar
 
