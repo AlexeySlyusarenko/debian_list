@@ -1,0 +1,28 @@
+# GRUB2 gfxmenu Linux theme
+# Designed for any resolution
+
+# Global Property
+title-text: ""
+desktop-image: "bg.png"
+desktop-color: "#000000"
+terminal-font: "Ubuntu Mono Regular 24"
+terminal-box: "terminal_box_*.png"
+terminal-left: "0"
+terminal-top: "0"
+terminal-width: "100%"
+terminal-height: "100%"
+terminal-border: "0"
+
+# Show the boot menu
++ boot_menu {
+  left = 50
+  top = 950
+  width = 512
+  height = 30
+  item_font = "Ubuntu Mono Regular 16"
+  item_color = "#363D43"
+  selected_item_color = "#363D43"
+  item_height = 130
+  item_padding = 0
+  item_spacing = 0
+}

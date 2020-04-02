@@ -1,0 +1,48 @@
+Xcursor.theme: whiteglass
+
+xlogin*login.translations: #override \
+	Ctrl<Key>R: abort-display()\n\
+	<Key>F1: set-session-argument(failsafe) finish-field()\n\
+	<Key>Delete: delete-character()\n\
+	<Key>Left: move-backward-character()\n\
+	<Key>Right: move-forward-character()\n\
+	<Key>Home: move-to-begining()\n\
+	<Key>End: move-to-end()\n\
+	Ctrl<Key>KP_Enter: set-session-argument(failsafe) finish-field()\n\
+	<Key>KP_Enter: set-session-argument() finish-field()\n\
+	Ctrl<Key>Return: set-session-argument(failsafe) finish-field()\n\
+	<Key>Return: set-session-argument() finish-field()
+
+xlogin*greeting: 
+xlogin*namePrompt: \040\040\040\040\040\040\040Login:
+xlogin*fail: Login incorrect or forbidden by policy
+
+xlogin.Login.greetFace:"Ubuntu Mono"-10
+xlogin.Login.failFace:"Ubuntu Mono"-6
+xlogin.Login.promptFace:"Ubuntu Mono"-10
+xlogin.Login.face:"Ubuntu Mono"-10
+
+xlogin*foreground:		#020305
+xlogin*background:		#020305
+xlogin*geometry:		300x150+0-0
+xlogin.Login.foreground:	#30383B
+xlogin.Login.promptColor:	#30383B
+xlogin.Login.failColor:		#A40200
+xlogin.Login.failTimeout:	3
+xlogin.Login.frameWidth:	0
+xlogin.Login.innerFramesWidth:	0
+xlogin.Login.sepWidth:		0
+xlogin.Login.echoPasswd:	false
+
+XConsole.text.geometry:	480x130
+XConsole.verbose:	false
+XConsole*iconic:	false
+XConsole*font:		fixed
+
+Chooser*geometry:		700x500+300+200
+Chooser*allowShellResize:	false
+Chooser*viewport.forceBars:	true
+Chooser*label.font:		*-new century schoolbook-bold-i-normal-*-240-*
+Chooser*label.label:		XDMCP Host Menu from CLIENTHOST
+Chooser*list.font:		-*-*-medium-r-normal-*-*-230-*-*-c-*-iso8859-1
+Chooser*Command.font:		*-new century schoolbook-bold-r-normal-*-180-*

@@ -1,0 +1,185 @@
+1. Установка Denian
+
+1.1. Скачать нужный образ диска https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-xx.y.z-amd64-netinst.iso с сайта debain.org
+
+1.2. Сделать загрузучный накопитель usb flash (необходим накопитель usb flash не менее 1GB): 
+- в Windows программой rufus,
+- в MacOS, Linux программой dd
+- выполнить
+dd /dev/sdxY
+где sdxY - накопитель usb flash (например /dev/sda1).
+
+1.3. Загрузиться с накопителя usb flash в режиме UEFI, Security Boot = disable, Fast Boot = disable.
+Установку выполнить в штатном режиме.
+При совместной установке Windows и Debian необходимо первым поставить Windows потом Debian и при установке записать Linux-загрузчик grub в Remote device.
+
+При использовании оборудования с non-free firware (обнаружите в ходе установке) необходимо:
+- скачать нужную firmware с сайта производителя
+- записать файлы firmware на накопитель usb flash в папку lib/firmware/
+- при установке вставить накопитель usb flash с файлами firmware и выполнить поиск файлов firmware на определенном шаге,
+в случае если оборудование не обнаружено необходимо скопировать файлы firmware с накопителя usb flash в папку /lib/firmware, выполнив в консоли tty (alt + fx, где x - номер консоли (консоль tty1 - установка Debian)):
+mount /dev/sdxY /mnt
+cp /mnt/lib/firmware /lib/firmware
+- повторно выполнить поиск файлов firmware на определенном шаге.
+
+При использовании двух дисков ssd nvme и версии ядра установочного Debian-дистрибьютава (проверить командой uname -a) < 5.2.9 необходимо вытащить второй ненужный диск ssd nvme для предотвращения конфликта двух установленных дисков ssd nvme в связи с багом ядра Linux (версия < 5.2.9).
+
+1.4. После установки Debian-дистрибьютава необходимо:
+- выполнить
+su
+apt-get update
+apt-get upgrade
+apt-get install sudo
+nano /etc/sudoers
+- добавить в конец файла sudoers
+user_name   ALL=(ALL:ALL) ALL
+где user_name - имя пользлователя, под которым необходимо выполнять команды с правами root
+
+- перезагрузиться
+- находясь в выборе системы для загрузки меню загрузчика grub, выбрать нужную linux-системы и нажать e
+- добавить в конец строки с выбранной для загрузки linux-системой nouveau.modeset=0
+- для продолжения загрузки нажать ctrl+c
+
+- выполнить
+echo deb http://deb.debian.org/debian buster-backports main contrib non-free | sudo tee /etc/apt/sources.list.d/buster-backports.list
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install -t buster-backports linux-image-amd64
+sudo apt-get install -t buster-backports firmware-linux firmware-linux-nonfree
+
+При использовании видекарт Nvidia.
+- выполнить
+sudo apt-get install -t buster-backports linux-headers-$(uname -r | sed ''s/[^-]*-[^-]*-//')
+sudo apt-get update
+sudo apt-get install -t buster-backports nvidia-driver
+
+sudo reboot
+
+2. Настройка сети
+
+2.1. Нстройка проводного подключения
+- выполнить
+sudo ip a
+sudo nano /etc/network/interfaces
+- добавить в конец файла interfaces неоходимый интерфейс сетевой карты из вывода команды sudo ip a
+# ethernet setting
+auto enp61s0
+  iface enp61s0 inet dhcp
+- сохранить файл
+- выполнить
+sudo systemctl restart networking.service
+
+2.2. Нстройка проводного подключения
+- выполнить
+sudo ip a
+sudo nano /etc/network/interfaces
+- добавить в конец файла interfaces неоходимый интерфейс сетевой карты из вывода команды sudo ip a
+# wi-fi setting
+  iface wlo1 inet dhcp
+  wpa-conf /etc/network/wpa.conf
+- сохранить файл
+- выполнить
+sudo wpa_passphrase ssid_wiless pass_wiless /etc/network/wpa.conf
+где ssid_wiless - имя беспроводной сети, pass_wiless - пароль беспроводной сети
+- выполнить
+sudo systemctl restart networking.service
+sudo ifup wlo1
+
+3. Настройка grub
+- выполнить
+sudo grub-install --version
+sudo os-prober
+sudo update-grub
+
+- если необходимо изменить названия заголовков меню загрузки неоходимо:
+посмотреть в файле /boot/grub/grub.cfg какие файлы-скрипты формируют заголовки menuentry
+скорректировать соответствующие скрипты в папке /etc/grub.d
+
+- выполнить
+sudo nano /etc/default/grub
+- добавить в файл /etc/default/grub
+GRUB_BACKGROUND="path_to_bg_image"
+где path_to_bg_image - путь к картинке *.png (например /boot/grub/gb.png)
+GRUB_THEME=""path_to_theme"
+где path_to_theme - путь к теме графического оформления theme.txt (например /boot/grub/theme/theme.txt)
+GRUB_GFXMODE=1920x1080x32
+
+- выполнить
+sudo cp grub/bg.png /boot/grub/bg.png
+sudo chown root /boot/grub/bg.png
+sudo chgrp root /boot/grub/bg.png
+sudo chmod 644 /boot/grub/bg.png
+sudo cp grub/theme/ /boot/grub/
+sudo chown root /boot/grub/theme/
+sudo chgrp root /boot/grub/theme/
+sudo chmod 644 -R /boot/grub/theme/
+
+4. Установка экрана входа xdm и графической среды i3 
+
+4.1. Установка Xorg, i3, xdm
+- выполнить
+sudo apt-get install xorg
+sudo apt-get install i3
+sudo apt-get install xdm
+sudo reboot
+
+4.2. Установка шрифтов
+
+sudo chmod 644 font/Ubuntu_Mono/
+sudo cp -r /mnt/Ubuntu_Mono/ /usr/local/share/fonts/
+sudo cp -r /mnt/Ubuntu_Mono/ /usr/share/fonts/
+sudo fc-cache -v
+sudo fc-list
+
+4.3. Нстройка xdm
+- выполнить
+sudo apt-get install qiv
+sudo chown root xdm/ -R
+sudo chgrp root xdm/ -R
+sudo chmod 644 xdm/ -R
+sudo cp xdm/bg.jpg /etc/X11/xdm/
+sudo cp xdm/Xresources /etc/X11/xdm/
+sudo cp xdm/Xsetup /etc/X11/xdm/
+
+4.4. Настройка i3-bar
+
+
+4.5. Настройка i3-lock
+
+
+
+5. Установка программ для работы
+- выполнить
+cd ~/Downloads
+
+в случае возникновения ошибки отсутствующих пакетов в процессе установки, выполнить
+sudo apt-get -f install
+sudo dpkg -i name_package
+
+5.1. Установка Firefox
+- выполнить
+sudo apt-get install firefox-esr
+
+5.2. Установка Chromium
+- выполнить
+sudo apt-get install chromium
+
+5.3. Установка Visual Studio Code
+- перейти https://code.visualstudio.com/download# и скачать deb пакет
+- выполнить
+sudo dpkg -i code_x.xx.x-xxxxxxxxxx-amd64.deb
+
+5.4. Установка LibreOffice
+- перейти http://download.documentfoundation.org/libreoffice/stable/6.4.2/deb/x86_64/LibreOffice_6.4.2_Linux_x86-64_deb.tar.gz
+или скачать deb пакет
+wget http://download.documentfoundation.org/libreoffice/stable/x.y.z/deb/x86_64/LibreOffice_x.y.z_Linux_x86-64_deb.tar.gz
+- выполнить
+tar -xf LibreOffice_x.y.z_Linux_x86-64_deb.tar.gz
+cd LibreOffice_x.y.z.z_Linux_x86-64_deb/DEBS
+sudo dpkg -i *.deb
+cd ../..
+rm -R  LibreOffice_x.y.z.z_Linux_x86-64_deb/
+
+5.5. Установка GIT
+- выполнить
+sudo apt-get install git
