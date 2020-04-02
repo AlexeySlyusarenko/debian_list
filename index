@@ -141,10 +141,17 @@ sudo cp xdm/bg.jpg /etc/X11/xdm/
 sudo cp xdm/Xresources /etc/X11/xdm/
 sudo cp xdm/Xsetup /etc/X11/xdm/
 
-4.4. Настройка i3-bar
-
+4.4. Настройка xterm
+- определяем какие файлы с X-ресурсами загружаются по умолчанию
+grep -R "Xresources" /etc/X11
+- добавляем в коне выбранного файла содержимое xterm/Xterm
+cat xterm/Xterm >> /home/alexey/.Xresources
 
 4.5. Настройка i3-lock
+
+
+
+4.6 Настройка i3-bar
 
 
 
