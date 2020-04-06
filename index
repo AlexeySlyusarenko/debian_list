@@ -70,6 +70,8 @@ auto enp61s0
 sudo systemctl restart networking.service
 
 2.2. Нстройка проводного подключения
+- установка драйверов intel
+sudo apt-get install -t backports firmware-iwlwifi
 - выполнить
 sudo ip a
 sudo nano /etc/network/interfaces
@@ -84,6 +86,9 @@ sudo wpa_passphrase ssid_wiless pass_wiless /etc/network/wpa.conf
 - выполнить
 sudo systemctl restart networking.service
 sudo ifup wlo1
+
+2.3 Стресс-тест процессора
+yes > /dev/null
 
 3. Настройка grub
 - выполнить
@@ -191,3 +196,55 @@ rm -R  LibreOffice_x.y.z.z_Linux_x86-64_deb/
 5.5. Установка GIT
 - выполнить
 sudo apt-get install git
+
+5.6. Установка Ranger
+- выполнить
+sudo apt-get install ranger
+ranger --copy-config=all
+
+для отбражение скрытых файлов:
+- открыть файл ~/.config/ranger/rc.conf и именить парамерт set show_hidden true
+
+5.7. Установка MC
+- выполнить
+sudo apt-get install mc
+
+Темы находятся в /usr/share/mc/skins/
+-выполнить для применения выбраннуб тему
+mc -S /usr/share/mc/skins/choose_theme.ini
+где choose_theme.ini - имя файла выбранной темы
+-выполнить для применения по умолчанию выбранной темы (скопировать файл choose_theme.ini)
+sudo cp /usr/share/mc/skins/choose_theme.ini /usr/share/mc/skins/default.ini
+
+5.8 Установка Telegram
+- выполнить
+sudo apt-get -t buster-backports telegram-desktop
+
+5.9 Установка 7z
+- выполнить
+sudo apt-get install p7z-full
+
+5.10 Установка OpenVPN
+- выполнить
+sudo apt-get install openvpn
+cd ~/Downloads
+wget https://www.ipvanish.com/software/configs/configs.zip
+unzip configs.zip
+sudo mkdir /etc/openvpn/client/conf
+sudo cp -R ipvanish* /etc/openvpn/client/conf/
+sudo cp ca.ipvanish.com.crt /etc/openvpn/client
+sudo cp ipvanish-XXX /etc/openvpn/client/client.conf
+где ipvanish-XXX. нужнаяконфигурация сервера с меньшим временем пинга
+
+- создаем файл с логином и паролем от сервера OpenVPN
+sudo nano /etc/openvpn/client/auth.conf
+-добавляем путь к настройкам /etc/openvpn/client/auth.conf в конец строки auth-user-pass файла /etc/openvpn/client/client.conf
+
+-проверяем работу (при появиться тунель tunX, где Х - номер туннеля)
+sudo systemctl start openvpn-client@client
+sudo ip a
+sudo systemctl stop openvpn-client@client
+
+- добавляем OpenVPN в службы
+sudo systemctl enable openvpn-client@client
+
