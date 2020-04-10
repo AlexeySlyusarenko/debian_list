@@ -90,6 +90,9 @@ sudo ifup wlo1
 2.3 Стресс-тест процессора
 yes > /dev/null
 
+2.4 Установка ALSA-utils для управлением громкостьюзвука
+sudo apt-get install alsa-utils
+
 3. Настройка grub
 - выполнить
 sudo grub-install --version
@@ -103,18 +106,14 @@ sudo update-grub
 - выполнить
 sudo nano /etc/default/grub
 - добавить в файл /etc/default/grub
-GRUB_BACKGROUND="path_to_bg_image"
-где path_to_bg_image - путь к картинке *.png (например /boot/grub/gb.png)
+# GRUB_BACKGROUND="path_to_bg_image"
+# где path_to_bg_image - путь к картинке *.png (например /boot/grub/gb.png)
 GRUB_THEME=""path_to_theme"
 где path_to_theme - путь к теме графического оформления theme.txt (например /boot/grub/theme/theme.txt)
 GRUB_GFXMODE=1920x1080x32
 
 - выполнить
-sudo cp grub/bg.png /boot/grub/bg.png
-sudo chown root /boot/grub/bg.png
-sudo chgrp root /boot/grub/bg.png
-sudo chmod 644 /boot/grub/bg.png
-sudo cp grub/theme/ /boot/grub/
+sudo cp -R grub/theme/ /boot/grub/
 sudo chown root /boot/grub/theme/
 sudo chgrp root /boot/grub/theme/
 sudo chmod 644 -R /boot/grub/theme/
@@ -137,7 +136,10 @@ sudo fc-cache -v
 sudo fc-list
 
 4.3. Нстройка xdm
-- выполнить
+скрипты выполняемые при работе xdm:
+при запуске /etc/X11/xdm/Xsetup
+при успешном логине /etc/X11/xdm/Xstartup
+
 sudo apt-get install qiv
 sudo chown root xdm/ -R
 sudo chgrp root xdm/ -R
@@ -145,6 +147,8 @@ sudo chmod 644 xdm/ -R
 sudo cp xdm/bg.jpg /etc/X11/xdm/
 sudo cp xdm/Xresources /etc/X11/xdm/
 sudo cp xdm/Xsetup /etc/X11/xdm/
+дисплей менеджер xdm для запуска по умолчанию необходимо в файл /etc/X11/default-display-manager удалить все и написать строку: /usr/bin/xdm
+для установки фона на рабочем столе i3 необходимо в начало файла /ect/X11/xdm/Xstartup написать строку: exec qiv -z /etc/X11/xdm/bg_wm.jpg 
 
 4.4. Настройка xterm
 - определяем какие файлы с X-ресурсами загружаются по умолчанию
