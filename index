@@ -163,6 +163,7 @@ sudo mkdir /usr/share/i3lock/
 sudo cp i3/i3lock/bg.png /usr/share/i3lock/
 
 4.6 Настройка i3status
+Блок memory работает с i3status версии >= 2.13
 - подключим SID репозиторий для установки i3status версии >= 2.13, добавим в конец файла /etc/apt/source.list
 deb http://ftp.ru.debian.org/debian/ unstable main non-free contrib
 deb-src http://ftp.ru.debian.org/debian/ unstable main non-free contrib
