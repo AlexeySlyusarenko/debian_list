@@ -163,6 +163,15 @@ sudo mkdir /usr/share/i3lock/
 sudo cp i3/i3lock/bg.png /usr/share/i3lock/
 
 4.6 Настройка i3status
+- подключим SID репозиторий для установки i3status версии >= 2.13, добавим в конец файла /etc/apt/source.list
+deb http://ftp.ru.debian.org/debian/ unstable main non-free contrib
+deb-src http://ftp.ru.debian.org/debian/ unstable main non-free contrib
+-выполнить
+sudo apt-get install -t unstable i3status
+- после установки закомментировать в файле /etc/apt/source.list строки:
+# deb http://ftp.ru.debian.org/debian/ unstable main non-free contrib
+# deb-src http://ftp.ru.debian.org/debian/ unstable main non-free contrib
+
 запускается из файла ~/.config/i3/
 - выполнить
 cp i3/i3status/config ~/.config/i3status/
