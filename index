@@ -259,3 +259,7 @@ sudo systemctl stop openvpn-client@client
 - добавляем OpenVPN в службы
 sudo systemctl enable openvpn-client@client
 
+5.11 Установка tmux
+- выполнить
+sudo apt-get install tmux
+
