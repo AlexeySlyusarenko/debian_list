@@ -27,9 +27,9 @@ cp /mnt/lib/firmware /lib/firmware
 1.4. После установки Debian-дистрибьютава необходимо:
 - выполнить
 su
-apt-get update
-apt-get upgrade
-apt-get install sudo
+apt update
+apt upgrade
+apt install sudo
 nano /etc/sudoers
 - добавить в конец файла sudoers
 user_name   ALL=(ALL:ALL) ALL
@@ -42,16 +42,16 @@ user_name   ALL=(ALL:ALL) ALL
 
 - выполнить
 echo deb http://deb.debian.org/debian buster-backports main contrib non-free | sudo tee /etc/apt/sources.list.d/buster-backports.list
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install -t buster-backports linux-image-amd64
-sudo apt-get install -t buster-backports firmware-linux firmware-linux-nonfree
+sudo apt update
+sudo apt upgrade
+sudo apt install -t buster-backports linux-image-amd64
+sudo apt install -t buster-backports firmware-linux firmware-linux-nonfree
 
 При использовании видекарт Nvidia.
 - выполнить
-sudo apt-get install -t buster-backports linux-headers-$(uname -r | sed ''s/[^-]*-[^-]*-//')
-sudo apt-get update
-sudo apt-get install -t buster-backports nvidia-driver
+sudo apt install -t buster-backports linux-headers-$(uname -r | sed ''s/[^-]*-[^-]*-//')
+sudo apt update
+sudo apt install -t buster-backports nvidia-driver
 
 sudo reboot
 
@@ -71,7 +71,7 @@ sudo systemctl restart networking.service
 
 2.2. Нстройка проводного подключения
 - установка драйверов intel
-sudo apt-get install -t backports firmware-iwlwifi
+sudo apt install -t backports firmware-iwlwifi
 - выполнить
 sudo ip a
 sudo nano /etc/network/interfaces
@@ -91,7 +91,7 @@ sudo ifup wlo1
 yes > /dev/null
 
 2.4 Установка ALSA-utils для управлением громкостьюзвука
-sudo apt-get install alsa-utils
+sudo apt install alsa-utils
 
 3. Настройка grub
 - выполнить
@@ -122,9 +122,9 @@ sudo chmod 644 -R /boot/grub/theme/
 
 4.1. Установка Xorg, i3, xdm
 - выполнить
-sudo apt-get install xorg
-sudo apt-get install i3
-sudo apt-get install xdm
+sudo apt install xorg
+sudo apt install i3
+sudo apt install xdm
 sudo reboot
 
 4.2. Установка шрифтов
@@ -140,7 +140,7 @@ sudo fc-list
 при запуске /etc/X11/xdm/Xsetup
 при успешном логине /etc/X11/xdm/Xstartup
 
-sudo apt-get install qiv
+sudo apt install qiv
 sudo chown root xdm/ -R
 sudo chgrp root xdm/ -R
 sudo chmod 644 xdm/ -R
@@ -168,7 +168,7 @@ sudo cp i3/i3lock/bg.png /usr/share/i3lock/
 deb http://ftp.ru.debian.org/debian/ unstable main non-free contrib
 deb-src http://ftp.ru.debian.org/debian/ unstable main non-free contrib
 -выполнить
-sudo apt-get install -t unstable i3status
+sudo apt install -t unstable i3status
 - после установки закомментировать в файле /etc/apt/source.list строки:
 # deb http://ftp.ru.debian.org/debian/ unstable main non-free contrib
 # deb-src http://ftp.ru.debian.org/debian/ unstable main non-free contrib
@@ -177,21 +177,31 @@ sudo apt-get install -t unstable i3status
 - выполнить
 cp i3/i3status/config ~/.config/i3status/
 
+4.7. Нстройка touchpad
+- выполнить
+sudo apt install xinput
+xinput list
+- если в списке есть Synaptics, то выполнить
+sudo apt install xserver-xorg-input-synaptics
+synclient VertScrollDelta=-112
+synclient HorizTwoFingerScroll=1
+synclient HorizScrollDelta=-112
+
 5. Установка программ для работы
 - выполнить
 cd ~/Downloads
 
 в случае возникновения ошибки отсутствующих пакетов в процессе установки, выполнить
-sudo apt-get -f install
+sudo apt -f install
 sudo dpkg -i name_package
 
 5.1. Установка Firefox
 - выполнить
-sudo apt-get install firefox-esr
+sudo apt install firefox-esr
 
 5.2. Установка Chromium
 - выполнить
-sudo apt-get install chromium
+sudo apt install chromium
 
 5.3. Установка Visual Studio Code
 - перейти https://code.visualstudio.com/download# и скачать deb пакет
@@ -211,11 +221,11 @@ rm -R  LibreOffice_x.y.z.z_Linux_x86-64_deb/
 
 5.5. Установка GIT
 - выполнить
-sudo apt-get install git
+sudo apt install git
 
 5.6. Установка Ranger
 - выполнить
-sudo apt-get install ranger
+sudo apt install ranger
 ranger --copy-config=all
 
 для отбражение скрытых файлов:
@@ -223,7 +233,7 @@ ranger --copy-config=all
 
 5.7. Установка MC
 - выполнить
-sudo apt-get install mc
+sudo apt install mc
 
 Темы находятся в /usr/share/mc/skins/
 -выполнить для применения выбраннуб тему
@@ -243,11 +253,11 @@ sudo ln -sf /opt/telegram/Telegram /usr/bin/telegram
 
 5.9 Установка 7z
 - выполнить
-sudo apt-get install p7z-full
+sudo apt install p7z-full
 
 5.10 Установка OpenVPN
 - выполнить
-sudo apt-get install openvpn
+sudo apt install openvpn
 cd ~/Downloads
 wget https://www.ipvanish.com/software/configs/configs.zip
 unzip configs.zip
@@ -271,5 +281,16 @@ sudo systemctl enable openvpn-client@client
 
 5.11 Установка tmux
 - выполнить
-sudo apt-get install tmux
+sudo apt install tmux
 
+5.12 Установка fontforge
+- выполнить
+cd Downloads
+git clone https://github.com/fontforge/fontforge
+sudo apt install libjpeg-dev libtiff5-dev libpng-dev libfreetype6-dev libgif-dev libgtk-3-dev libxml2-dev libpango1.0-dev libcairo2-dev libspiro-dev libuninameslist-dev python3-dev ninja-build cmake build-essential
+cd fontforge
+mkdir build
+cd build
+cmake -GNinja ..
+ninja
+sudo ninja install

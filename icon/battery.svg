@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100">
+
+<path d="
+M0 20q0-5 5-5h75q5 0 5 5v10h5q5 0 5 5v10q0 5-5 5h-5v10q0 5-5 5h-75q-5 0-5-5z
+
+M5 60h75v-40h-75z
+M85 45h5v-10h-5z
+
+M10 55h5v-30h-5z
+M20 55h5v-30h-5z
+M30 55h5v-30h-5z
+M40 55h5v-30h-5z
+M50 55h5v-30h-5z
+M60 55h5v-30h-5z
+M70 55h5v-30h-5z
+" style="fill: gray"/></svg>

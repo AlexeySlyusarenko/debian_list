@@ -10,7 +10,7 @@ general {
 order += "wireless wlo1"
 order += "ethernet enp61s0"
 order += "path_exists vpn-ipvanish"
-order += "battery msi"
+order += "cpu_usage"
 order += "cpu_temperature 1"
 order += "cpu_temperature 2"
 order += "cpu_temperature 3"
@@ -18,17 +18,17 @@ order += "cpu_temperature 4"
 order += "cpu_temperature 5"
 order += "cpu_temperature 6"
 order += "cpu_temperature 7"
-order += "cpu_usage"
-# order += "memory"
+order += "memory"
 # order += "load"
 order += "disk /"
 order += "volume master"
+order += "battery msi"
 order += "tztime local"
 
 
 wireless wlo1 {
-        # format_up = "W: (%quality at %essid) %ip"
-        format_up = "W %essid"
+        # format_up = "wifi-icon (%quality at %essid) %ip"
+        format_up = "wifi-icon %essid"
         format_down = ""
 }
 ethernet enp61s0 {
@@ -37,25 +37,15 @@ ethernet enp61s0 {
         format_down = ""
 }
 path_exists vpn-ipvanish {
-        format = "%title"
+        format = "vpn-icon EE"
         format_down = ""
         path = "/proc/sys/net/ipv4/conf/tun0"
 }
-battery msi {
-        format = "%status %percentage %remaining"
-        integer_battery_capacity = "true"
-        hide_seconds = "true"
-        # format = "%status %remaining (%emptytime %consumption)"
-        format_down = "No battery"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
-        status_unk = "? UNK"
-        status_full = "☻ FULL"
-        low_threshold = "20"
-        threshold_type = "percentage"
-        path = "/sys/class/power_supply/BAT1/uevent"
-}
 
+cpu_usage {
+        format = "cpu%usage-icon"
+        separator = false
+}
 cpu_temperature 1 {
         format = "%degrees"
         path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
@@ -90,29 +80,41 @@ cpu_temperature 7 {
         format = "%degrees"
         # format_above_threshold = "%degrees"
         path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp7_input"
-        separator = false
-}
-cpu_usage {
-        format = "%usage"
 }
 # load {
 #         format = "%1min"
 # }
-# memory {
-#         memory_used_method = "memavailable"
-#         format = "%free"
-# }
+memory {
+        memory_used_method = "classical"
+        format = "%freeram-icon"
+}
 disk "/" {
-        format = "%avail"
-        prefix_type = "custom"
+        format = "%availssd-icon"
+        prefix_type = "binary"
 }
 volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
+        format = "volume%volume-icon"
+        format_muted = "volume0%-icon"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
 }
+
+battery msi {
+        format = "%status%percentage%remaining"
+        integer_battery_capacity = "true"
+        hide_seconds = "true"
+        # format = "%status %remaining (%emptytime %consumption)"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        low_threshold = "20"
+        threshold_type = "percentage"
+        path = "/sys/class/power_supply/BAT1/uevent"
+}
+
 tztime local {
         format = "%a %d.%m %H:%M "
 }
