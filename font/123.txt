@@ -1,0 +1,8 @@
+﻿b a t t e r y nine(9)  percent(%) hyphen(-) i c o n
+
+b a t t e r y  percent(%) hyphen(-) i c o n
+
+b a t t e r y one(1)  percent(%) hyphen(-) i c o n
+
+liga_battery0_icon
+

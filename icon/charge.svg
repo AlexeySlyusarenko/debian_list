@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="128" width="128">
+
+<path d="
+M80 74h-15q-10 0-10-10v-10q-20 0-20-20v-10h7v-15h5v15h21v-15h5v15h7v10q0 20-20 20v10q0 5 5 5h15z
+
+M75 29h-35v5q0 15 15 15h5q15 0 15-15z
+"
+style="fill: grey"/></svg>

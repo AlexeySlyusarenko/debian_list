@@ -101,15 +101,16 @@ volume master {
 }
 
 battery msi {
-        format = "%status%percentage%remaining"
+        # format = "%status%percentage%remaining"
+        # format = "%status %remaining (%emptytime %consumption)"
+        format = "%statusbattery%percentage-icon"
         integer_battery_capacity = "true"
         hide_seconds = "true"
-        # format = "%status %remaining (%emptytime %consumption)"
-        format_down = "No battery"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
-        status_unk = "? UNK"
-        status_full = "☻ FULL"
+        format_down = "battery-no-icon"
+        status_chr = "charge-icon"
+        status_bat = ""
+        status_unk = "battery-no-icon"
+        status_full = "charge-icon"
         low_threshold = "20"
         threshold_type = "percentage"
         path = "/sys/class/power_supply/BAT1/uevent"
