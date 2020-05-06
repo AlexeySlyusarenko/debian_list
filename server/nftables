@@ -1,0 +1,34 @@
+nftables, strongswan, nat
+
+Here are some brain triggers for modifications to nftables when working with Strongswan IPSEC policies. Included are rules for NAT.
+
+fraggod offered up the secret sauce to work around the lack of a direct replacement of iptables xt_policy module in nftables.
+
+Wiki for nftables says that both nat prerouting and nat postrouting need to be in place in order to ensure connection tracking and nat processing work properly, even if only outbound nat rules or only inbound nat rules are configured
+
+    add chain ip nat prerouting { type nat hook prerouting priority 0; policy accept; }
+    add chain ip nat postrouting { type nat hook postrouting priority 0; policy accept; }
+
+Given that 172.16.6.0/24 is a subnet on the left side to be encrypted, and 172.16.5.0/24 is a subnet on the right side to be encrypted, they need to bypass the nat rules on the edge interface. The two rules here are for the left hand side. The accept statement is used to bypass nat. The masquerade statement will nat everything else from that subnet. The order of the two rules is important.
+
+    add rule ip nat postrouting oifname eth0 ip saddr 172.16.6.0/24 ip daddr 172.16.5.0/24 accept
+    add rule ip nat postrouting oifname eth0 ip saddr 172.16.6.0/24 masquerade
+
+IPSEC processing on the receive side is a two stage affair: decrypt, then normal connection tracking processing. The idea here is to mark esp packets, the content of which is unknown. That mark is then used at a later stage to accept the traffic through the connection tracker once decrypted.
+
+    define markIpsecInput = 0x101
+    add rule ip filter input ip protocol esp mark set mark or $markIpsecInput
+    add rule ip filter input mark and $markIpsecInput == $markIpsecInput accept
+
+A filter to drop invalid stuff, then to accept established (tcp flag based) and related (special connection tracker modules) traffic.
+
+    add rule ip filter input ct state invalid log prefix "BB:ctinput:DROP:" group 0 counter drop
+    add rule ip filter input ct state established,related counter accept
+
+Rules are needed for accepting encapsulated traffic:
+
+    add rule ip filter outside_local udp sport 500 udp dport 500 counter accept
+    add rule ip filter outside_local udp sport 4500 udp dport 4500 counter accept
+
+    add rule ip filter outside_local ip protocol esp counter accept
+    add rule ip filter outside_local ip protocol ah counter accept

@@ -37,7 +37,7 @@ ethernet enp61s0 {
         format_down = ""
 }
 path_exists vpn-ipvanish {
-        format = "vpn-icon EE"
+        format = "vpn-icon FI"
         format_down = ""
         path = "/proc/sys/net/ipv4/conf/tun0"
 }
@@ -109,7 +109,7 @@ battery msi {
         format_down = "battery-no-icon"
         status_chr = "charge-icon"
         status_bat = ""
-        status_unk = "battery-no-icon"
+        status_unk = "charge-icon"
         status_full = "charge-icon"
         low_threshold = "20"
         threshold_type = "percentage"

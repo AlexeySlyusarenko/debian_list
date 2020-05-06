@@ -6,3 +6,4 @@ b a t t e r y one(1)  percent(%) hyphen(-) i c o n
 
 liga_battery0_icon
 
+liga_w_i_f_i_hyphen_i_c_o_n
