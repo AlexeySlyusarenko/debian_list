@@ -21,29 +21,34 @@ order += "cpu_temperature 7"
 order += "memory"
 # order += "load"
 order += "disk /"
+order += "disk /mnt/sda1"
+order += "disk /mnt/sdb1"
+order += "disk /mnt/sdc1"
+order += "disk /mnt/sdd1"
+order += "disk /mnt/sde1"
 order += "volume master"
 order += "battery msi"
 order += "tztime local"
 
-
 wireless wlo1 {
         # format_up = "wifi-icon (%quality at %essid) %ip"
-        format_up = "wifi-icon %essid"
+        format_up = "wifi-icon%essid"
         format_down = ""
 }
 ethernet enp61s0 {
         # if you use %speed, i3status requires root privileges
-        format_up = "E: %ip (%speed)"
+        format_up = "ethernet-icon %ip"
         format_down = ""
 }
 path_exists vpn-ipvanish {
-        format = "vpn-icon FI"
+        format = "vpn-iconFI"
         format_down = ""
         path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
 cpu_usage {
         format = "cpu%usage-icon"
+        # format = "cpu-icon"
         separator = false
 }
 cpu_temperature 1 {
@@ -91,6 +96,26 @@ memory {
 disk "/" {
         format = "%availssd-icon"
         prefix_type = "binary"
+}
+disk /mnt/sda1 {
+        format = "%totalusb-icon a"
+        prefix_type = "binary"     
+}
+disk /mnt/sdb1 {
+        format = "%totalusb-icon b"
+        prefix_type = "binary"     
+}
+disk /mnt/sdc1 {
+        format = "%totalusb-icon c"
+        prefix_type = "binary"     
+}
+disk /mnt/sdd1 {
+        format = "%totalusb-icon d"
+        prefix_type = "binary"     
+}
+disk /mnt/sde1 {
+        format = "%totalusb-icon e"
+        prefix_type = "binary"     
 }
 volume master {
         format = "volume%volume-icon"
