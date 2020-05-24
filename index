@@ -225,13 +225,17 @@ rm -R  LibreOffice_x.y.z.z_Linux_x86-64_deb/
 - выполнить
 sudo apt install git
 
-5.6. Установка Ranger
-- выполнить
-sudo apt install ranger
+5.6. Install Ranger
+- run
+sudo pacman -S ranger
+-set default configuration
 ranger --copy-config=all
 
-для отбражение скрытых файлов:
-- открыть файл ~/.config/ranger/rc.conf и именить парамерт set show_hidden true
+5.6.1 show hidden files:
+- open file ~/.config/ranger/rc.conf
+nano ~/.config/ranger/rc.conf
+- find and set parameter 'set show_hidden' equal 'true'
+set show_hidden true
 
 5.7. Установка MC
 - выполнить
@@ -304,3 +308,14 @@ sudo pacman -S bash-completion
 5.14 Set bash
 - add in file ~/.bashrc
 export PS1='\e[3;34m\W\e[0;31m > \e[0m'
+
+5.15 Set change keymap
+- add in file ~/.xinitrc
+exec setxkbmap -model pc105 -layout us,ru -option grp:win_space_toggle
+
+5.16 Install yay
+-run
+sudo pacman -S yay
+
+5.16 Install freecad
+yay -S freecad
