@@ -155,6 +155,8 @@ sudo cp xdm/Xsetup /etc/X11/xdm/
 grep -R "Xresources" /etc/X11
 - добавляем в коне выбранного файла содержимое xterm/Xterm
 cat xterm/Xterm >> /home/alexey/.Xresources
+- run
+xrdb ~/.Xresources
 
 4.5. Настройка i3
 - выполнить
@@ -279,10 +281,6 @@ sudo systemctl stop openvpn-client@client
 - добавляем OpenVPN в службы
 sudo systemctl enable openvpn-client@client
 
-5.11 Установка tmux
-- выполнить
-sudo apt install tmux
-
 5.12 Установка fontforge
 - выполнить
 cd Downloads
@@ -294,3 +292,15 @@ cd build
 cmake -GNinja ..
 ninja
 sudo ninja install
+
+5.12 Установка virtualbox
+- выполнить
+sudo pacman -S virtualbox
+
+5.13 Install bash completion
+- run
+sudo pacman -S bash-completion
+
+5.14 Set bash
+- add in file ~/.bashrc
+export PS1='\e[3;34m\W\e[0;31m > \e[0m'
