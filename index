@@ -214,6 +214,8 @@ sudo apt install chromium
 sudo dpkg -i code_x.xx.x-xxxxxxxxxx-amd64.deb
 - настройка
 cp vscode/setting.json /home/alexey/.config/Code/User/
+- install gnome keyring for automatic authentication
+sudo apt install gnome-keyring
 
 5.4. Установка LibreOffice
 - перейти http://download.documentfoundation.org/libreoffice/stable/6.4.2/deb/x86_64/LibreOffice_6.4.2_Linux_x86-64_deb.tar.gz
