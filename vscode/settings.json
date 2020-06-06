@@ -1,0 +1,18 @@
+{
+    "editor.fontSize": 20,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "terminal.integrated.fontSize": 18,
+    "workbench.startupEditor": "newUntitledFile",
+    "window.zoomLevel": 2,
+    "debug.console.fontSize": 18,
+    "markdown.preview.fontSize": 18,
+    "terminal.integrated.fontWeightBold": "400",
+    "editor.minimap.enabled": false,
+    "workbench.colorCustomizations": {
+        "statusBar.background" : "#1A1A1A",
+        "statusBar.noFolderBackground" : "#212121",
+        "statusBar.debuggingBackground": "#263238"
+    },
+    "editor.wordWrap": "on"
+}

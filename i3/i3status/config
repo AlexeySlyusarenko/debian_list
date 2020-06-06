@@ -1,15 +1,15 @@
 general {
         colors = true
         interval = 5
-        color_good = "#FFFFFF"
-        color_degraded = "#FF9933"
-        color_bad = "#FF0033"
+        color_good = "#b3b3b3"
+        color_degraded = "#FF9800"
+        color_bad = "#F44336"
         color_separator = "#666666"
 }
 
 order += "wireless wlo1"
 order += "ethernet enp61s0"
-order += "path_exists vpn-ipvanish"
+order += "path_exists vpn-fi"
 order += "cpu_usage"
 order += "cpu_temperature 1"
 # order += "cpu_temperature 2"
@@ -40,7 +40,7 @@ ethernet enp61s0 {
         format_up = "ethernet-icon %ip"
         format_down = ""
 }
-path_exists vpn-ipvanish {
+path_exists vpn-fi {
         format = "vpn-iconFI"
         format_down = ""
         path = "/proc/sys/net/ipv4/conf/tun0"
@@ -53,7 +53,7 @@ cpu_usage {
 }
 cpu_temperature 1 {
         format = "%degrees"
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
 }
 cpu_temperature 2 {
         format = "%degrees"

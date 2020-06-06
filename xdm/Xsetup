@@ -2,8 +2,8 @@
 #
 # This script is run as root before showing login widget.
 
- if [ -s /etc/X11/xdm/bg.jpg -a -x /usr/bin/qiv ] ; then
-    /usr/bin/qiv -z /etc/X11/xdm/bg.jpg
+ if [ -s /etc/X11/xdm/bg.png -a -x /usr/bin/qiv ] ; then
+    /usr/bin/qiv -z /etc/X11/xdm/bg.png
  else
      /usr/bin/xsetroot -solid rgb:8/8/8
  fi

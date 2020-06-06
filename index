@@ -100,7 +100,7 @@ sudo os-prober
 sudo update-grub
 
 - если необходимо изменить названия заголовков меню загрузки неоходимо:
-посмотреть в файле /boot/grub/grub.cfg какие файлы-скрипты формируют заголовки menuentry
+посмотреть в файле /boot/grub/grub.cfg (файл /boot/grub/grub.cfg не мнять!) какие файлы-скрипты формируют заголовки menuentry
 скорректировать соответствующие скрипты в папке /etc/grub.d
 
 - выполнить
@@ -136,6 +136,7 @@ sudo fc-cache -v
 sudo fc-list
 
 4.3. Нстройка xdm
+тема xdm описана в файле /etc/X11/xdm/Xresources
 скрипты выполняемые при работе xdm:
 при запуске /etc/X11/xdm/Xsetup
 при успешном логине /etc/X11/xdm/Xstartup
@@ -144,11 +145,12 @@ sudo apt install qiv
 sudo chown root xdm/ -R
 sudo chgrp root xdm/ -R
 sudo chmod 644 xdm/ -R
-sudo cp xdm/bg.jpg /etc/X11/xdm/
+sudo cp xdm/bg.png /etc/X11/xdm/
 sudo cp xdm/Xresources /etc/X11/xdm/
 sudo cp xdm/Xsetup /etc/X11/xdm/
 дисплей менеджер xdm для запуска по умолчанию необходимо в файл /etc/X11/default-display-manager удалить все и написать строку: /usr/bin/xdm
-для установки фона на рабочем столе i3 необходимо в начало файла /ect/X11/xdm/Xstartup написать строку: exec qiv -z /etc/X11/xdm/bg_wm.jpg 
+для установки фона на рабочем столе i3 необходимо в начало файла /ect/X11/xdm/Xstartup написать строку: exec qiv -z /etc/X11/xdm/bg_image.png
+где /etc/X11/xdm/bg_image.png картинка рабочего стола
 
 4.4. Настройка xterm
 - определяем какие файлы с X-ресурсами загружаются по умолчанию
@@ -180,14 +182,15 @@ sudo apt install -t unstable i3status
 cp i3/i3status/config ~/.config/i3status/
 
 4.7. Нстройка touchpad
+https://mnorin.com/nastrojka-tachpada-v-linux.html
 - выполнить
 sudo apt install xinput
 xinput list
 - если в списке есть Synaptics, то выполнить
 sudo apt install xserver-xorg-input-synaptics
-synclient VertScrollDelta=-112
+synclient VertScrollDelta=-250
 synclient HorizTwoFingerScroll=1
-synclient HorizScrollDelta=-112
+synclient HorizScrollDelta=-250
 
 5. Установка программ для работы
 - выполнить
@@ -209,6 +212,8 @@ sudo apt install chromium
 - перейти https://code.visualstudio.com/download# и скачать deb пакет
 - выполнить
 sudo dpkg -i code_x.xx.x-xxxxxxxxxx-amd64.deb
+- настройка
+cp vscode/setting.json /home/alexey/.config/Code/User/
 
 5.4. Установка LibreOffice
 - перейти http://download.documentfoundation.org/libreoffice/stable/6.4.2/deb/x86_64/LibreOffice_6.4.2_Linux_x86-64_deb.tar.gz
@@ -254,7 +259,7 @@ wget https://telegram.org/dl/desktop/linux
 - выполнить
 cd ~/Downloads
 tar -xJvf tsetup.0.7.2.tar
-sudo mv Telegram /opt/telegram
+sudo mv -R Telegram /opt/telegram
 sudo ln -sf /opt/telegram/Telegram /usr/bin/telegram
 
 5.9 Установка 7z
@@ -269,7 +274,7 @@ wget https://www.ipvanish.com/software/configs/configs.zip
 unzip configs.zip
 sudo mkdir /etc/openvpn/client/conf
 sudo cp -R ipvanish* /etc/openvpn/client/conf/
-sudo cp ca.ipvanish.com.crt /etc/openvpn/client
+sudo cp ca.ipvanish.com.crt /etc/openvpn/client/
 sudo cp ipvanish-XXX /etc/openvpn/client/client.conf
 где ipvanish-XXX. нужнаяконфигурация сервера с меньшим временем пинга
 
@@ -306,11 +311,12 @@ sudo pacman -S virtualbox
 sudo pacman -S bash-completion
 
 5.14 Set bash
-- add in file ~/.bashrc
-export PS1='\e[3;34m\W\e[0;31m > \e[0m'
+https://gahcep.github.io/blog/2012/07/28/unix-bash-shell-prompt/
+- add or find and replace in file ~/.bashrc
+PS1=''
 
 5.15 Set change keymap
-- add in file ~/.xinitrc
+- add in file ~/.xinitrc or ~/.i3/config
 exec setxkbmap -model pc105 -layout us,ru -option grp:win_space_toggle
 
 5.16 Install yay

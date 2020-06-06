@@ -16,12 +16,12 @@ terminal-border: "0"
 # Show the boot menu
 + boot_menu {
   left = 50
-  top = 950
+  top = 920
   width = 512
   height = 30
   item_font = "Ubuntu Mono Regular 16"
-  item_color = "#363D43"
-  selected_item_color = "#363D43"
+  item_color = "#4caf50"
+  selected_item_color = "#4caf50"
   item_height = 130
   item_padding = 0
   item_spacing = 0
